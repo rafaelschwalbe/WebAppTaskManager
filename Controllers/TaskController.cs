@@ -33,5 +33,11 @@ namespace WebAppTaskManager.Controllers
         {
             return mediator.Send(command);
         }
+
+        [HttpDelete("{id}")]
+        public Task<bool> Delete([FromServices] IMediator mediator, Guid id) 
+        {
+            return mediator.Send(new DeleteTaskByIdCommand(id));
+        }
     }
 }

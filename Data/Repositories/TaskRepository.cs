@@ -21,9 +21,12 @@ namespace WebAppTaskManager.Data.Repositories
             connection.Execute(query);
         }
 
-        public void DeleteTask(Domain.Entities.Task task)
+        public void DeleteTask(Guid id)
         {
-            throw new NotImplementedException();
+            using var connection = new SqliteConnection(DatabaseConfig.Name);
+            string query = $"DELETE FROM task " +
+                $"WHERE id = '{id}';";
+            connection.Execute(query);
         }
 
         public IEnumerable<Domain.Entities.Task> GetAllTasks()

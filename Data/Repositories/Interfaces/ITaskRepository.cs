@@ -6,6 +6,6 @@
         Domain.Entities.Task GetTaskById(Guid id);
         void CreateTask(Domain.Entities.Task task);
         void UpdateTask(Domain.Entities.Task task);
-        void DeleteTask(Domain.Entities.Task task);
+        void DeleteTask(Guid id);
     }
 }
