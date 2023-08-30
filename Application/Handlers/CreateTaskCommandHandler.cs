@@ -17,8 +17,8 @@ namespace WebAppTaskManager.Application.Handlers
         {
             Domain.Entities.Task task = new Domain.Entities.Task
             {
-                Id = Guid.NewGuid(),
-                CreationDate = DateTime.Now,
+                Id = Guid.NewGuid().ToString(),
+                CreationDate = DateTime.Now.ToString(),
                 Description = request.Description,
                 Status = "Pendente",//criar constante
                 Title = request.Title
