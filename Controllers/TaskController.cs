@@ -11,7 +11,7 @@ namespace WebAppTaskManager.Controllers
     public class TaskController : ControllerBase
     {
         [HttpPost]
-        public Task<bool> Create([FromServices] IMediator mediator, [FromBody]CreateTaskCommand command) 
+        public Task<bool> Create([FromServices] IMediator mediator, [FromBody] CreateTaskCommand command) 
         {
             return mediator.Send(command);
         }
@@ -26,6 +26,12 @@ namespace WebAppTaskManager.Controllers
         public Task<TaskDetailsResponse> GetById([FromServices] IMediator mediator, Guid id)
         {
             return mediator.Send(new GetTaskByIdQuery(id));
+        }
+
+        [HttpPut]
+        public Task<bool> Update([FromServices] IMediator mediator, [FromBody] UpdateTaskCommand command)
+        {
+            return mediator.Send(command);
         }
     }
 }

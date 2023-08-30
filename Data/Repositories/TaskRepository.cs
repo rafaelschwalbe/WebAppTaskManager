@@ -48,7 +48,11 @@ namespace WebAppTaskManager.Data.Repositories
 
         public void UpdateTask(Domain.Entities.Task task)
         {
-            throw new NotImplementedException();
+            using var connection = new SqliteConnection(DatabaseConfig.Name);
+            string query = $"UPDATE task " +
+                $"SET title = '{task.Title}', description = '{task.Description}', enddate = '{task.EndDate}', status = '{task.Status}'" +
+                $"WHERE id = '{task.Id}';";
+            connection.Execute(query);
         }
     }
 }
