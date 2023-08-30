@@ -28,7 +28,12 @@ namespace WebAppTaskManager.Data.Repositories
 
         public IEnumerable<Domain.Entities.Task> GetAllTasks()
         {
-            throw new NotImplementedException();
+            using var connection = new SqliteConnection(DatabaseConfig.Name);
+
+            var query = "SELECT * FROM task";
+            var tasks = connection.Query<Domain.Entities.Task>(query);
+
+            return tasks;
         }
 
         public Domain.Entities.Task GetTaskById(Guid id)
