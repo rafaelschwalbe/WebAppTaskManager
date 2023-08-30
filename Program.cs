@@ -1,4 +1,8 @@
+using MediatR;
+using System.Reflection;
 using WebAppTaskManager.Data;
+using WebAppTaskManager.Data.Repositories;
+using WebAppTaskManager.Data.Repositories.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,9 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+
 // sqlite
 builder.Services.AddSingleton(new DatabaseConfig { Name = builder.Configuration.GetValue<string>("DatabaseName", "Data Source=database.sqlite") });
 builder.Services.AddSingleton<IDatabaseBootstrap, DatabaseBootstrap>();
+builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -28,5 +35,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// sqlite
+app.Services.GetService<IDatabaseBootstrap>().Setup();
 
 app.Run();
