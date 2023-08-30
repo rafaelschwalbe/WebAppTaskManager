@@ -38,7 +38,12 @@ namespace WebAppTaskManager.Data.Repositories
 
         public Domain.Entities.Task GetTaskById(Guid id)
         {
-            throw new NotImplementedException();
+            using var connection = new SqliteConnection(DatabaseConfig.Name);
+
+            var query = "SELECT * FROM task WHERE id = @Id";
+            var task = connection.QuerySingleOrDefault<Domain.Entities.Task>(query, new { Id = id.ToString() });
+
+            return task;
         }
 
         public void UpdateTask(Domain.Entities.Task task)

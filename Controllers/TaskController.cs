@@ -21,5 +21,11 @@ namespace WebAppTaskManager.Controllers
         {
             return mediator.Send(new GetAllTasksQuery());
         }
+
+        [HttpGet("{id}")]
+        public Task<TaskDetailsResponse> GetById([FromServices] IMediator mediator, Guid id)
+        {
+            return mediator.Send(new GetTaskByIdQuery(id));
+        }
     }
 }
